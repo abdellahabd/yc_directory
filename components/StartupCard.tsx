@@ -41,7 +41,7 @@ const StartupCard = ({ poster }) => {
         <p className="startup-card_desc">{poster?.description}</p>
 
         <img
-          src={poster?.imageUrl}
+          src={poster?.image}
           alt="placeholder"
           className="startup-card_img"
         />

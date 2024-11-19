@@ -1,25 +1,15 @@
 import Image from "next/image";
 import SearchFrom from "../../components/SearchForm";
 import StartupCard from "../../components/StartupCard";
+import { client } from "@/sanity/lib/client";
+import { Startup_Query } from "@/sanity/lib/queries";
 
 export default async function Home({
   searchParams,
 }: {
   searchParams: Promise<{ query: string }>;
 }) {
-  const posters = [
-    {
-      _createdAt: new Date(),
-      title: "We robot",
-      discription: "this is a discription",
-      views: 55,
-      imageUrl:
-        "https://eu-images.contentstack.com/v3/assets/blt31d6b0704ba96e9d/blt46f496902fa86192/66b48b47e7b54b81809e88c7/News_Image_-_2024-08-07T095607.430.jpg?width=1280&auto=webp&quality=95&format=jpg&disable=upscale",
-      category: "Robotic",
-      _id: 1,
-      auther: { _id: 1, name: "Abdellah" },
-    },
-  ];
+  const posters = await client.fetch(Startup_Query);
   const query = (await searchParams).query;
   return (
     <>
