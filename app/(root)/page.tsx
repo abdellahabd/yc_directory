@@ -1,6 +1,6 @@
 import Image from "next/image";
 import SearchFrom from "../../components/SearchForm";
-import StartupCard from "@/components/StartupCard";
+import StartupCard from "../../components/StartupCard";
 
 export default async function Home({
   searchParams,
@@ -36,7 +36,7 @@ export default async function Home({
       </section>
       <section className="section_container">
         <p className="text-30-semibold ">
-          {query ? `Search results for  ${query}` : "All Statups"}
+          {query ? `Search results for  "${query}"` : "All Statups"}
         </p>
         <ul className=" mt-7 card_grid">
           {posters?.length > 0 ? (
