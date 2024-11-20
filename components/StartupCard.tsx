@@ -1,10 +1,16 @@
+/* eslint-disable @next/next/no-img-element */
 import { formatDate } from "@/lib/utils";
 import { EyeIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Author, Startup } from "@/sanity/types";
 
-const StartupCard = ({ poster }) => {
+export type StartupTypeCard = Omit<
+  Startup,
+  "author" | "_type" | "_updatedAt" | "_rev"
+> & { author?: Author };
+const StartupCard = ({ poster }: { poster: StartupTypeCard }) => {
   return (
     <li className="startup-card group">
       <div className="flex-between">
@@ -29,7 +35,7 @@ const StartupCard = ({ poster }) => {
         <Link href={`/user/${poster?.author?._id}`}>
           <Image
             src="https://placehold.co/48x48"
-            alt={poster?.auther?.name}
+            alt={poster?.author?.name || ""}
             width={48}
             height={48}
             className="rounded-full"

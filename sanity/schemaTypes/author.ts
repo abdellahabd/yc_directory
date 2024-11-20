@@ -9,7 +9,11 @@ export const author = defineType({
   icon: UserIcon,
   fields: [
     defineField({ name: "id", type: "number" }),
-    defineField({ name: "name", type: "string" }),
+    defineField({
+      name: "name",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
     defineField({ name: "username", type: "string" }),
     defineField({ name: "email", type: "string" }),
     defineField({ name: "image", type: "url" }),
