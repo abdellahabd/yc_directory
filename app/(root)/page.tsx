@@ -1,15 +1,20 @@
-import Image from "next/image";
+import { sanityFetch } from "@/lib/live";
 import SearchFrom from "../../components/SearchForm";
 import StartupCard, { StartupTypeCard } from "../../components/StartupCard";
 import { client } from "@/sanity/lib/client";
 import { Startup_Query } from "@/sanity/lib/queries";
+import { SanityLive } from "@/sanity/lib/live";
 
 export default async function Home({
   searchParams,
 }: {
   searchParams: Promise<{ query: string }>;
 }) {
-  const posters = await client.fetch(Startup_Query);
+  const { data: posters } = await sanityFetch({
+    query: Startup_Query,
+    params: {},
+  });
+
   const query = (await searchParams).query;
   return (
     <>
@@ -30,14 +35,15 @@ export default async function Home({
         </p>
         <ul className=" mt-7 card_grid">
           {posters?.length > 0 ? (
-            posters.map((poster: StartupTypeCard, index: number) => (
-              <StartupCard poster={poster} key={poster._id} />
-            ))
+            posters.map((poster: StartupTypeCard) => {
+              return <StartupCard poster={poster} key={poster._id} />;
+            })
           ) : (
             <p className="no-result">No startup found</p>
           )}
         </ul>
       </section>
+      <SanityLive />
     </>
   );
 }
