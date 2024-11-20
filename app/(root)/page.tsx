@@ -10,12 +10,14 @@ export default async function Home({
 }: {
   searchParams: Promise<{ query: string }>;
 }) {
+  const query = (await searchParams).query;
+
+  const params = { search: query || null };
   const { data: posters } = await sanityFetch({
     query: Startup_Query,
-    params: {},
+    params,
   });
 
-  const query = (await searchParams).query;
   return (
     <>
       <section className="pink_container">
