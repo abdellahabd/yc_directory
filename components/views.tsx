@@ -2,7 +2,6 @@ import { client } from "@/sanity/lib/client";
 import { unstable_after as after } from "next/server";
 import Ping from "./Ping";
 import { Startup_Query_Views } from "@/sanity/lib/queries";
-import { Startup } from "@/sanity/types";
 import { write_client } from "@/sanity/lib/write-client";
 
 async function Views({ id }: { id: string | undefined }) {
