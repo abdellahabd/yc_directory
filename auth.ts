@@ -8,9 +8,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [GitHub],
   callbacks: {
     async signIn({ user: { name, email, image }, profile }) {
-      const existuser = await client.fetch(Author_By_GITHUB_ID_QUERY, {
-        id: profile?.id,
-      });
+      const existuser = await client
+        .withConfig({ useCdn: false })
+        .fetch(Author_By_GITHUB_ID_QUERY, {
+          id: profile?.id,
+        });
       if (!existuser) {
         await write_client.create({
           _type: "author",
@@ -32,9 +34,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           .fetch(Author_By_GITHUB_ID_QUERY, {
             id: profile?.id,
           });
-        if (!user) {
-          token.id = user._id;
-        }
+
+        token.id = user?._id;
       }
       return token;
     },
